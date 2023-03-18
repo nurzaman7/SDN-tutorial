@@ -1,4 +1,4 @@
-# A demo class on SDN - with Mininet and Ryu controller
+# A demo session on SDN - with Mininet and Ryu controller
 ## Installation
 It uses Ubuntu 20.04, however, it should work with other Linux operating system too. 
 
