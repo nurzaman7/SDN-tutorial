@@ -2,7 +2,6 @@
 
 It uses Ubuntu 20.04, however, it should work with other Linux operating system too. 
 
-Install Mininet\
 To install Mininet use the following command
 ### `sudo apt update`
 ### `sudo install python3-pip`
