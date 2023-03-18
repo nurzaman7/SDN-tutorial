@@ -35,7 +35,7 @@ Now go to the ryu directory, execute the following command
 
 SDN controler should work now!
 
-The following vm image contains Mininet and Ryu installed, can be used in a virtual environemnt like VM Fusion.
+The following vm image contains Mininet and Ryu installed, can be used in a virtual environemnt like VM Fusion, user: nza, pass: 8
 https://drive.google.com/file/d/1mZp_VjSGQNVyvUVtHF9Rk7SPDG4FrV1G/view?usp=sharing
 
 For any query, contact me at nahmed@danforthcenter.org
