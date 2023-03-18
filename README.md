@@ -43,7 +43,7 @@ For any query, contact me at nahmed@danforthcenter.org
 ## Mininet Turotial
 
 Start a minimal topology
-###`sudo mn`
+### `sudo mn`
 
 This will create a minimal topology with one controller, one switch, and two hosts
 
