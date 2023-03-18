@@ -7,7 +7,7 @@ To install Mininet use the following command
 ### `sudo install python3-pip`
 ### `sudo apt-get install mininet`
 
-Python3 is recomended for the latest version of Mininet.  However, the above command may install an older version of Mininet which may not support Python 3. If you would like the latest version of Mininet, consider installing from source as follows. \
+Python3 is recomended for the latest version of Mininet.  However, the above command may install an older version of Mininet which may not support Python 3. If you would like the latest version of Mininet, consider installing from source as follows. 
 
 Git clone the recent Mininet repo as follows.
 
