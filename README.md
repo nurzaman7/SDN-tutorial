@@ -1,5 +1,5 @@
 # A demo class on SDN - with Mininet and Ryu controller
-
+## Installation
 It uses Ubuntu 20.04, however, it should work with other Linux operating system too. 
 
 To install Mininet use the following command
@@ -39,3 +39,20 @@ The following vm image contains Mininet and Ryu installed, can be used in a virt
 https://drive.google.com/file/d/1mZp_VjSGQNVyvUVtHF9Rk7SPDG4FrV1G/view?usp=sharing
 
 For any query, contact me at nahmed@danforthcenter.org
+
+## Mininet Turotial
+
+Start a minimal topology
+###`sudo mn`
+
+This will create a minimal topology with one controller, one switch, and two hosts
+
+Display all nodes
+###`mininet>nodes`
+Display all links
+###`mininet>net`
+Dump information about all nodes
+###`mininet>dump`
+To exit mininet
+###`mininet>nodes`
+
