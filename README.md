@@ -54,5 +54,5 @@ Display all links
 Dump information about all nodes
 ### `mininet>dump`
 To exit mininet
-### `mininet>nodes`
+### `mininet>exit`
 
