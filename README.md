@@ -56,3 +56,12 @@ Dump information about all nodes
 To exit mininet
 ### `mininet>exit`
 
+There many options available to create a SDN topology, for more information 
+### `mn help`
+
+To create a custom topology
+
+### `sudo mn --topo=TOPO`
+
+where TOPO can be minimal, linear, X (with X switch and Y host in each), linear, X,Y (with X switch and Y host in each), tree, X, Y (X depth with Y fanout), single, X (single switch with X hosts). 
+
