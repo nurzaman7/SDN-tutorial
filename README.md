@@ -65,3 +65,17 @@ To create a custom topology
 
 where TOPO can be minimal, linear, X (with X switch and Y host in each), linear, X,Y (with X switch and Y host in each), tree, X, Y (X depth with Y fanout), single, X (single switch with X hosts). 
 
+To select switch type
+### `--switch=SWITCH`
+
+where SWITCH can be ovsk or user type.
+
+To select Controller type
+### `--controller=CONTROLLER`
+
+where CONTROLLER could be ovsc, and nox. In case of a remote controller to be connected with the Mininet swtiches, the option should be remote as follows
+
+### `--controller=remote, ip=127.0.0.1`
+
+where ip option helps to set the IP address of the remote controller, in this case it is the localhost.
+
