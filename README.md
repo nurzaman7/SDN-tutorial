@@ -33,7 +33,7 @@ Now go to the ryu directory, execute the following command
 
 ### `ryu-manager --verbose ryu/app/simple_switch-13.py`
 
-SDN controler should work now!\
+SDN controler should work now!
 
 The following vm image cam be use in a virtual environemnt like VM Fusion.
 https://drive.google.com/file/d/1mZp_VjSGQNVyvUVtHF9Rk7SPDG4FrV1G/view?usp=sharing
