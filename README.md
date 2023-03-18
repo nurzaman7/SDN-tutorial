@@ -34,3 +34,5 @@ Now go to the ryu directory, execute the following command
 
 ### `ryu-manager --verbose ryu/app/simple_switch-13.py`
 
+SDN controler should work now!
+
