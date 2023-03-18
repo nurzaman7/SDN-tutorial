@@ -48,11 +48,11 @@ Start a minimal topology
 This will create a minimal topology with one controller, one switch, and two hosts
 
 Display all nodes
-###`mininet>nodes`
+### `mininet>nodes`
 Display all links
-###`mininet>net`
+### `mininet>net`
 Dump information about all nodes
-###`mininet>dump`
+### `mininet>dump`
 To exit mininet
-###`mininet>nodes`
+### `mininet>nodes`
 
