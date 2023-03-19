@@ -56,7 +56,7 @@ Dump information about all nodes
 To exit mininet
 ### `mininet>exit`
 
-There many options available to create a SDN topology, for more information 
+There are many options available to create a SDN topology, for more information 
 ### `mn help`
 
 To create a custom topology
