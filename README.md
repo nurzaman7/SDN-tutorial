@@ -75,7 +75,8 @@ To select Controller type
 
 where CONTROLLER could be ovsc, and nox. In case of a remote controller to be connected with the Mininet switches, the option should be remote as follows
 
-### `--controller=remote, ip=127.0.0.1`
+### `sudo mn --controller=remote,ip=127.0.0.1 --topo=linear,3 --switch ovsk,protocols=OpenFlow13`
+
 
 where ip option helps to set the IP address of the remote controller, in this case it is the localhost.
 
