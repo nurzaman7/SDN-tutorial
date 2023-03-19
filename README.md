@@ -73,7 +73,7 @@ where SWITCH can be ovsk or user type.
 To select Controller type
 ### `--controller=CONTROLLER`
 
-where CONTROLLER could be ovsc, and nox. In case of a remote controller to be connected with the Mininet swtiches, the option should be remote as follows
+where CONTROLLER could be ovsc, and nox. In case of a remote controller to be connected with the Mininet switches, the option should be remote as follows
 
 ### `--controller=remote, ip=127.0.0.1`
 
