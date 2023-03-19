@@ -63,7 +63,7 @@ To create a custom topology
 
 ### `sudo mn --topo=TOPO`
 
-where TOPO can be minimal, linear, X (with X switch and Y host in each), linear, X,Y (with X switch and Y host in each), tree, X, Y (X depth with Y fanout), single, X (single switch with X hosts). 
+where TOPO can be minimal, linear, X (with X switch and 1 host in each), linear, X,Y (with X switch and Y host in each), tree, X, Y (X depth with Y fanout), single, X (single switch with X hosts). 
 
 To select switch type
 ### `--switch=SWITCH`
