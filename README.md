@@ -35,10 +35,6 @@ Now go to the ryu directory, execute the following command
 
 SDN controler should work now!
 
-The following vm image contains Mininet and Ryu installed, can be used in a virtual environemnt like VM Fusion, user: nza, pass: 8
-https://drive.google.com/file/d/1mZp_VjSGQNVyvUVtHF9Rk7SPDG4FrV1G/view?usp=sharing
-
-For any query, contact me at nahmed@danforthcenter.org
 
 ## Mininet Turotial
 
@@ -88,3 +84,53 @@ set bandwidh of 20Mb, and delay of 20ms for the link, in the default topology
 
 ### `(h1)----20ms----(s1)-----20ms-----(h2)`
 
+## Ryu Controller application
+For this, lets create a simple firewall that filters flow based on the destination IP address and the source IP address. For this, we will be using the single topology, which has three hosts, one switch, and one controller.
+
+ 
+### `        (c0)`
+### `         |`
+### `(h1)----(s1)-----(h2)
+### `         |
+### `        (h3)`
+ 
+Lets create a Mininet topology
+### `sudo mn --controller=remote,ip=127.0.0.1 --topo single,3 --mac --switch ovsk,protocols=OpenFlow13`
+
+
+We will be using Ryu controller, lets start the controller,
+### `ryu-manager --verbose ryu/app/rest_firewall.py`
+
+To eanble firewall
+
+### `curl -X PUT http://localhost:8080/firewall/module/enable/0000000000000001`
+
+See the status
+
+### `curl http://localhost:8080/firewall/module/status`
+
+lets ping hosts
+### `h1 ping h2`
+It should not work, as its not a forwarding app.
+
+To eanble ping, we can set firewall rules, as follows:
+
+### `source: 10.0.0.1/32, destination: 10.0.0.2/32, protocol: ICMP, and permission: allow`
+### `source: 10.0.0.2/32, destination: 10.0.0.1/32, protocol: ICMP, and permission: allow`
+
+curl command would be
+
+### `curl -X POST -d '{"nw_src": "10.0.0.1/32", "nw_dst": "10.0.0.2/32", "nw_proto": "ICMP"}' http://localhost:8080/firewall/rules/0000000000000001`
+### `curl -X POST -d '{"nw_src": "10.0.0.2/32", "nw_dst": "10.0.0.1/32", "nw_proto": "ICMP"}' http://localhost:8080/firewall/rules/0000000000000001`
+
+check if the rules have been set
+
+### `curl http://localhost:8080/firewall/rules/0000000000000001`
+
+Ping should work now!!
+
+The following vm image contains Mininet and Ryu installed, can be used in a virtual environemnt like VM Fusion, 
+user: nza, pass: 8
+https://drive.google.com/file/d/1mZp_VjSGQNVyvUVtHF9Rk7SPDG4FrV1G/view?usp=sharing
+
+For any query, contact me at nahmed@danforthcenter.org
