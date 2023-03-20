@@ -91,7 +91,7 @@ For this, lets create a simple firewall that filters flow based on the destinati
 ### `        (c0)`
 ### `         |`
 ### `(h1)----(s1)-----(h2)
-### `         |
+### `         |`
 ### `        (h3)`
  
 Lets create a Mininet topology
