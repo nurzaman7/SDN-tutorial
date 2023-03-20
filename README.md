@@ -80,3 +80,11 @@ where CONTROLLER could be ovsc, and nox. In case of a remote controller to be co
 
 where ip option helps to set the IP address of the remote controller, in this case it is the localhost.
 
+
+How to set link bandiwth and delay?
+### `sudo mn --link tc,bw=20,delay=20ms`
+
+set bandwidh of 20Mb, and delay of 20ms for the link, in the default topology
+
+### `(h1)----20ms----(s1)-----20-----(h2)`
+
