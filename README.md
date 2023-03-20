@@ -128,7 +128,7 @@ check if the rules have been set
 
 Ping should work now!!
 
-The following vm image contains Mininet and Ryu installed, can be used in a virtual environemnt like VM Fusion, 
+The following vm image contains Mininet and Ryu installed and can be used in a virtual environment like VM Fusion, 
 user: nza, pass: 8
 https://drive.google.com/file/d/1mZp_VjSGQNVyvUVtHF9Rk7SPDG4FrV1G/view?usp=sharing
 
