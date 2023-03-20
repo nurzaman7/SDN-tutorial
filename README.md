@@ -1,15 +1,16 @@
 # SDN demo - with Mininet and Ryu controller
 ## Installation
-It uses Ubuntu 20.04, however, it should work with other Linux operating system too. 
+It uses Ubuntu 20.04 but should also work with other Linux operating systems. 
 
-To install Mininet use the following command
+To install Mininet, use the following command.
+
 ### `sudo apt update`
 ### `sudo install python3-pip`
 ### `sudo apt-get install mininet`
 
-Python3 is recomended for the latest version of Mininet.  However, the above command may install an older version of Mininet which may not support Python 3. If you would like the latest version of Mininet, consider installing from source as follows. 
+Python3 is recommended for the latest version of Mininet.  However, the above command may install an older version of Mininet which may not support Python 3. If you would like the latest version of Mininet, consider installing from the source as follows. 
 
-Git clone the recent Mininet repo as follows.
+Git clones the recent Mininet repo as follows.
 
 ### `git clone https://github.com/mininet/mininet`
 ### `cd mininet`
@@ -41,7 +42,7 @@ SDN controler should work now!
 Start a minimal topology
 ### `sudo mn`
 
-This will create a minimal topology with one controller, one switch, and two hosts
+This will create a minimal topology with one controller, one switch, and two hosts.
 
 Display all nodes
 ### `mininet>nodes`
@@ -52,7 +53,7 @@ Dump information about all nodes
 To exit mininet
 ### `mininet>exit`
 
-There are many options available to create a SDN topology, for more information 
+There are many options available to create a SDN topology, for more information. 
 ### `mn help`
 
 To create a custom topology
@@ -69,7 +70,7 @@ where SWITCH can be ovsk or user type.
 To select Controller type
 ### `--controller=CONTROLLER`
 
-where CONTROLLER could be ovsc, and nox. In case of a remote controller to be connected with the Mininet switches, the option should be remote as follows
+where CONTROLLER could be ovsc, and nox. In case of a remote controller to be connected with the Mininet switches, the option should be remote as follows.
 
 ### `sudo mn --controller=remote,ip=127.0.0.1 --topo=linear,3 --switch ovsk,protocols=OpenFlow13`
 
