@@ -118,7 +118,7 @@ To eanble ping, we can set firewall rules, as follows:
 ### `source: 10.0.0.1/32, destination: 10.0.0.2/32, protocol: ICMP, and permission: allow`
 ### `source: 10.0.0.2/32, destination: 10.0.0.1/32, protocol: ICMP, and permission: allow`
 
-curl command would be
+curl commands would be
 
 ### `curl -X POST -d '{"nw_src": "10.0.0.1/32", "nw_dst": "10.0.0.2/32", "nw_proto": "ICMP"}' http://localhost:8080/firewall/rules/0000000000000001`
 ### `curl -X POST -d '{"nw_src": "10.0.0.2/32", "nw_dst": "10.0.0.1/32", "nw_proto": "ICMP"}' http://localhost:8080/firewall/rules/0000000000000001`
