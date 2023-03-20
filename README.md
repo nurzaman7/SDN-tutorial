@@ -88,11 +88,11 @@ set bandwidh of 20Mb, and delay of 20ms for the link, in the default topology
 For this, lets create a simple firewall that filters flow based on the destination IP address and the source IP address. For this, we will be using the single topology, which has three hosts, one switch, and one controller.
 
  
-### `        (c0)`
-### `         |`
-### `(h1)----(s1)-----(h2)
-### `         |`
-### `        (h3)`
+### `       (c0)`
+### `        |`
+### `(h1)----(s1)-----(h2)`
+### `        |`
+### `       (h3)`
  
 Lets create a Mininet topology
 ### `sudo mn --controller=remote,ip=127.0.0.1 --topo single,3 --mac --switch ovsk,protocols=OpenFlow13`
