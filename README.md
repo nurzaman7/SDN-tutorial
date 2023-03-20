@@ -86,5 +86,5 @@ How to set link bandiwth and delay?
 
 set bandwidh of 20Mb, and delay of 20ms for the link, in the default topology
 
-### `(h1)----20ms----(s1)-----20-----(h2)`
+### `(h1)----20ms----(s1)-----20ms-----(h2)`
 
