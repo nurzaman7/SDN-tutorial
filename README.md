@@ -105,13 +105,11 @@ To eanble firewall
 
 ### `curl -X PUT http://localhost:8080/firewall/module/enable/0000000000000001`
 
-See the status
-
-### `curl http://localhost:8080/firewall/module/status`
-
 lets ping hosts
 ### `h1 ping h2`
-It should not work, as its not a forwarding app.
+It should not work, as there is no rules set yet.
+
+### `curl http://localhost:8080/firewall/rules/0000000000000001`
 
 To eanble ping, we can set firewall rules, as follows:
 
