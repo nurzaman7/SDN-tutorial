@@ -1,135 +1,222 @@
-# SDN demo - with Mininet and Ryu controller
-## Installation
-It uses Ubuntu 20.04 but should also work with other Linux operating systems. 
+# SDN Tutorial: Mininet and the Ryu Controller
 
-To install Mininet, use the following command.
+A hands-on introduction to Software-Defined Networking. You will build
+emulated networks with [Mininet](http://mininet.org/), connect them to a
+remote [Ryu](https://ryu-sdn.org/) controller over OpenFlow 1.3, and finish
+by programming a firewall through Ryu's REST API.
 
-### `sudo apt update`
-### `sudo install python3-pip`
-### `sudo apt-get install mininet`
+**Contents**
 
-Python3 is recommended for the latest version of Mininet.  However, the above command may install an older version of Mininet which may not support Python 3. If you would like the latest version of Mininet, consider installing from the source as follows. 
+1. [Installation](#1-installation)
+2. [Mininet basics](#2-mininet-basics)
+3. [Topologies, switches, controllers and links](#3-topologies-switches-controllers-and-links)
+4. [Lab: a REST firewall with Ryu](#4-lab-a-rest-firewall-with-ryu)
+5. [Ready-made VM](#5-ready-made-vm)
 
-Git clones the recent Mininet repo as follows.
+Tested on Ubuntu 20.04; other Linux distributions should work too.
 
-### `git clone https://github.com/mininet/mininet`
-### `cd mininet`
-### `~/mininet/util/install.sh -a`
+## 1. Installation
 
-Run the following command to check Mininet's working
+### Mininet
 
-### `sudo mn`
+```bash
+sudo apt update
+sudo apt install python3-pip
+sudo apt-get install mininet
+```
 
-Let's install Ryu controller now.
+Python 3 is recommended for current Mininet. The packaged version above can
+be old and may not support Python 3; to get the latest version, install from
+source instead:
 
-### `git clone https://github.com/faucetsdn/ryu.git`
-### `cd ryu`
-### `pip install .`
+```bash
+git clone https://github.com/mininet/mininet
+cd mininet
+util/install.sh -a
+```
 
-Let's start the Mininet again as follows:
+Check that Mininet works:
 
-### `sudo mn --controller=remote, ip=127.0.0.1`
+```bash
+sudo mn
+```
 
-Now go to the ryu directory, execute the following command
+### Ryu
 
-### `ryu-manager --verbose ryu/app/simple_switch-13.py`
+```bash
+git clone https://github.com/faucetsdn/ryu.git
+cd ryu
+pip install .
+```
 
-SDN controler should work now!
+### First run with a remote controller
 
+Start Mininet and point it at a controller on localhost:
 
-## Mininet Turotial
+```bash
+sudo mn --controller=remote,ip=127.0.0.1
+```
 
-Start a minimal topology
-### `sudo mn`
+In a second terminal, from the `ryu` directory, start a learning switch:
 
-This will create a minimal topology with one controller, one switch, and two hosts.
+```bash
+ryu-manager --verbose ryu/app/simple_switch_13.py
+```
 
-Display all nodes
-### `mininet>nodes`
-Display all links
-### `mininet>net`
-Dump information about all nodes
-### `mininet>dump`
-To exit mininet
-### `mininet>exit`
+The switch connects to the controller and the hosts can now reach each other.
 
-There are many options available to create a SDN topology, for more information. 
-### `mn help`
+## 2. Mininet basics
 
-To create a custom topology
+Start the minimal topology (one controller, one switch, two hosts):
 
-### `sudo mn --topo=TOPO`
+```bash
+sudo mn
+```
 
-where TOPO can be minimal, linear, X (with X switch and 1 host in each), linear, X,Y (with X switch and Y host in each), tree, X, Y (X depth with Y fanout), single, X (single switch with X hosts). 
+Useful commands at the `mininet>` prompt:
 
-To select switch type
-### `--switch=SWITCH`
+| Command | What it does |
+| --- | --- |
+| `nodes` | Display all nodes |
+| `net` | Display all links |
+| `dump` | Dump information about all nodes |
+| `h1 ping h2` | Run a command on a host |
+| `exit` | Leave Mininet |
 
-where SWITCH can be ovsk or user type.
+For every command-line option:
 
-To select Controller type
-### `--controller=CONTROLLER`
+```bash
+mn --help
+```
 
-where CONTROLLER could be ovsc, and nox. In case of a remote controller to be connected with the Mininet switches, the option should be remote as follows.
+## 3. Topologies, switches, controllers and links
 
-### `sudo mn --controller=remote,ip=127.0.0.1 --topo=linear,3 --switch ovsk,protocols=OpenFlow13`
+### Topology
 
+```bash
+sudo mn --topo=TOPO
+```
 
-where ip option helps to set the IP address of the remote controller, in this case it is the localhost.
+| `TOPO` | Result |
+| --- | --- |
+| `minimal` | One switch, two hosts |
+| `single,X` | One switch with `X` hosts |
+| `linear,X` | `X` switches in a line, one host on each |
+| `linear,X,Y` | `X` switches in a line, `Y` hosts on each |
+| `tree,X,Y` | A tree of depth `X` with fanout `Y` |
 
+### Switch
 
-How to set link bandiwth and delay?
-### `sudo mn --link tc,bw=20,delay=20ms`
+```bash
+--switch=SWITCH
+```
 
-set bandwidh of 20Mb, and delay of 20ms for the link, in the default topology
+`SWITCH` can be `ovsk` (Open vSwitch, kernel) or `user` (user-space switch).
 
-### `(h1)----20ms----(s1)-----20ms-----(h2)`
+### Controller
 
-## Ryu Controller application
-For this, lets create a simple firewall that filters flow based on the destination IP address and the source IP address. For this, we will be using the single topology, which has three hosts, one switch, and one controller.
+```bash
+--controller=CONTROLLER
+```
 
- 
-### `       (c0)`
-### `        |`
-### `(h1)----(s1)-----(h2)`
-### `        |`
-### `       (h3)`
- 
-Lets create a Mininet topology
-### `sudo mn --controller=remote,ip=127.0.0.1 --topo single,3 --mac --switch ovsk,protocols=OpenFlow13`
+`CONTROLLER` can be `ovsc` or `nox`. To attach the switches to a controller
+running outside Mininet, use `remote`:
 
+```bash
+sudo mn --controller=remote,ip=127.0.0.1 --topo=linear,3 --switch ovsk,protocols=OpenFlow13
+```
 
-We will be using Ryu controller, lets start the controller,
-### `ryu-manager --verbose ryu/app/rest_firewall.py`
+`ip` is the address of the remote controller, here the local machine.
 
-To eanble firewall
+### Link bandwidth and delay
 
-### `curl -X PUT http://localhost:8080/firewall/module/enable/0000000000000001`
+```bash
+sudo mn --link tc,bw=20,delay=20ms
+```
 
-lets ping hosts
-### `h1 ping h2`
-It should not work, as there is no rules set yet.
+This gives every link in the default topology 20 Mbit/s of bandwidth and
+20 ms of delay:
 
-### `curl http://localhost:8080/firewall/rules/0000000000000001`
+```text
+(h1)----20ms----(s1)----20ms----(h2)
+```
 
-To eanble ping, we can set firewall rules, as follows:
+## 4. Lab: a REST firewall with Ryu
 
-### `source: 10.0.0.1/32, destination: 10.0.0.2/32, protocol: ICMP, and permission: allow`
-### `source: 10.0.0.2/32, destination: 10.0.0.1/32, protocol: ICMP, and permission: allow`
+The goal is a firewall that filters flows by source and destination IP
+address. The topology is one switch, three hosts and one controller:
 
-curl commands would be
+```text
+        (c0)
+         |
+(h1)----(s1)----(h2)
+         |
+        (h3)
+```
 
-### `curl -X POST -d '{"nw_src": "10.0.0.1/32", "nw_dst": "10.0.0.2/32", "nw_proto": "ICMP"}' http://localhost:8080/firewall/rules/0000000000000001`
-### `curl -X POST -d '{"nw_src": "10.0.0.2/32", "nw_dst": "10.0.0.1/32", "nw_proto": "ICMP"}' http://localhost:8080/firewall/rules/0000000000000001`
+**Step 1.** Create the topology:
 
-check the rules
+```bash
+sudo mn --controller=remote,ip=127.0.0.1 --topo single,3 --mac --switch ovsk,protocols=OpenFlow13
+```
 
-### `curl http://localhost:8080/firewall/rules/0000000000000001`
+**Step 2.** Start Ryu with the firewall application:
 
-Ping should work now!!
+```bash
+ryu-manager --verbose ryu/app/rest_firewall.py
+```
 
-The following vm image contains Mininet and Ryu installed and can be used in a virtual environment like VM Fusion, 
-user: nza, pass: 8
-https://drive.google.com/file/d/1mZp_VjSGQNVyvUVtHF9Rk7SPDG4FrV1G/view?usp=sharing
+**Step 3.** Enable the firewall on the switch:
 
-For any query, contact me at nahmed@danforthcenter.org
+```bash
+curl -X PUT http://localhost:8080/firewall/module/enable/0000000000000001
+```
+
+**Step 4.** Ping between hosts from the Mininet prompt:
+
+```text
+mininet> h1 ping h2
+```
+
+It fails, because the firewall has no rules yet and blocks everything. You
+can confirm that the rule list is empty:
+
+```bash
+curl http://localhost:8080/firewall/rules/0000000000000001
+```
+
+**Step 5.** Allow ICMP in both directions between `h1` and `h2`:
+
+| Source | Destination | Protocol | Action |
+| --- | --- | --- | --- |
+| 10.0.0.1/32 | 10.0.0.2/32 | ICMP | allow |
+| 10.0.0.2/32 | 10.0.0.1/32 | ICMP | allow |
+
+```bash
+curl -X POST -d '{"nw_src": "10.0.0.1/32", "nw_dst": "10.0.0.2/32", "nw_proto": "ICMP"}' http://localhost:8080/firewall/rules/0000000000000001
+curl -X POST -d '{"nw_src": "10.0.0.2/32", "nw_dst": "10.0.0.1/32", "nw_proto": "ICMP"}' http://localhost:8080/firewall/rules/0000000000000001
+```
+
+**Step 6.** Check the rules, then ping again:
+
+```bash
+curl http://localhost:8080/firewall/rules/0000000000000001
+```
+
+```text
+mininet> h1 ping h2
+```
+
+The ping now succeeds, while `h3` is still blocked.
+
+## 5. Ready-made VM
+
+A virtual machine image with Mininet and Ryu already installed, for use with
+a hypervisor such as VMware Fusion:
+
+- Image: https://drive.google.com/file/d/1mZp_VjSGQNVyvUVtHF9Rk7SPDG4FrV1G/view?usp=sharing
+- User: `nza`, password: `8`
+
+## Contact
+
+Questions: nahmed@danforthcenter.org
